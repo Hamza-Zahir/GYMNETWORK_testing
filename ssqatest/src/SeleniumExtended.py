@@ -1,11 +1,10 @@
+
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
-import time
 from selenium.webdriver.support.ui import Select
-
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
+import time
 
 
 
@@ -59,16 +58,6 @@ class SeleniumExtended:
         ) 
 
 
-
-    # def wait_until_elements_contains_texts(self, locators, texts, timeout=None):
-    #     timeout = timeout if timeout else self.default_timeout
-    #     for i in  range(len(locators)):
-    #         WebDriverWait(self.driver, timeout).until(
-    #             EC.text_to_be_present_in_element(locators[i], texts[i])
-    #         ) 
-
-
-
     def check_value_of_css_property(self, locator, css_property, value_of_css_property, error_messag, timeout=None):
         timeout = timeout if timeout else self.default_timeout
         element = WebDriverWait(self.driver, timeout).until(
@@ -79,7 +68,6 @@ class SeleniumExtended:
    
     def wait_and_pest_text(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
-        # act = ActionChains(self.driver)  
         WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located(locator)
         ).send_keys(Keys.CONTROL, 'v')
@@ -87,7 +75,6 @@ class SeleniumExtended:
 
     def wait_and_enter(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
-        # act = ActionChains(self.driver)  
         WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located(locator)
         ).send_keys(Keys.ENTER)
@@ -142,7 +129,15 @@ class SeleniumExtended:
     def click_into_link_and_Verify_page_by_logo(self, link_locator, page_name, logo_locator=None, logo_src=None):
         self.scrollIntoView_and_click(link_locator)
         self.wait_and_check_attribute_value_is_correct(logo_locator, 'src', logo_src, f'{page_name} page is not correct')   
-# element_text
+
+
+    def wait_until_invisibility(self, locator, timeout=None):
+        timeout = timeout if timeout else self.default_timeout
+        WebDriverWait(self.driver, timeout).until(
+            EC.invisibility_of_element_located(locator)
+        )
+
+
 
     # ...................................................................
 
@@ -161,11 +156,7 @@ class SeleniumExtended:
                 )
             el.click()
 
-    def wait_until_invisibility(self, locator, timeout=None):
-        timeout = timeout if timeout else self.default_timeout
-        WebDriverWait(self.driver, timeout).until(
-            EC.invisibility_of_element_located(locator)
-        )
+
 
     def wait_and_get_attribute_value(self, locator, attribute_name, timeout=None):
         timeout = timeout if timeout else self.default_timeout
@@ -184,13 +175,7 @@ class SeleniumExtended:
             EC.visibility_of_element_located(locator)
         )
 
-
-    def wait_until_element_contains_text(self, locator, text, timeout=None):
-        timeout = timeout if timeout else self.default_timeout
-        WebDriverWait(self.driver, timeout).until(
-            EC.text_to_be_present_in_element(locator, text)
-        )      
-    
+     
 
     def select_option_from_selector(self, selector_locator, option_value, timeout=None):
         timeout = timeout if timeout else self.default_timeout
@@ -198,11 +183,7 @@ class SeleniumExtended:
                                 EC.visibility_of_element_located(selector_locator)
                             )
         select = Select(selector_element)
-        # select by value 
         select.select_by_value(option_value)
-
-
-
 
 
     def wait_and_get_elements(self, locator, timeout=None, err=None):
@@ -227,7 +208,3 @@ class SeleniumExtended:
 
         return elment_text
     
-
-
-
-# invisibility_of_element_located
